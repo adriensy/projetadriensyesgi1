@@ -34,6 +34,7 @@
         
         // Get response
         $graphObject = $response->getGraphObject(GraphUser::className());
+        die(var_dump($graphObject));
     } else {
         $loginUrl = $helper->getLoginUrl();
     }
