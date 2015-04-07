@@ -1,5 +1,7 @@
 <?php
-
+    error_reporting(E_ALL);
+    
+    
     require "facebook-php-sdk-v4-4.0-dev/autoload.php";
     
     use Facebook\FacebookSession;
@@ -8,13 +10,14 @@
     
     const APP_ID = "1456178881340751";
     const APP_SECRET = "0a8bd1b0e40a21206aa1b0b02ec14251";
+    const REDIRECT_URL = "https://projetadriensyesgi1.herokuapp.com";
     
     session_start();
     
     FacebookSession::setDefaultApplication(APP_ID, APP_SECRET);
     
     $loginUrl = "";
-    $helper = new FacebookRedirectLoginHelper('http://localhost/');
+    $helper = new FacebookRedirectLoginHelper(REDIRECT_URL);
     
     try {
         $session = $helper->getSessionFromRedirect();
