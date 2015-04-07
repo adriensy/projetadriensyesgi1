@@ -66,7 +66,6 @@
     <body>
         <?php
             if (isset($graphObject)) {
-                die(var_dump($graphObject));
                 echo "Vous êtes connecté en tant que ".$graphObject->getName();
             } else {
                 echo '<a href="'.$loginUrl.'">S\'authentifier avec Facebook</a>';
