@@ -34,7 +34,6 @@
         
         // Get response
         $graphObject = $response->getGraphObject(GraphUser::className());
-        die(var_dump($graphObject));
     } else {
         $loginUrl = $helper->getLoginUrl();
     }
@@ -68,6 +67,7 @@
         <?php
             if (isset($graphObject)) {
                 echo "Vous êtes connecté en tant que ".$graphObject->getName();
+                echo '<img src="http://graph.facebook.com/'.$graphObject->getId().'/picture" alt="Facebook profile picture" height="42" width="42">';
             } else {
                 echo '<a href="'.$loginUrl.'">S\'authentifier avec Facebook</a>';
             }
