@@ -7,6 +7,8 @@
     use Facebook\FacebookSession;
     use Facebook\FacebookRedirectLoginHelper;
     use Facebook\FacebookRequest;
+    use Facebook\FacebookRequestException;
+    use Facebook\GraphUser;
     
     const APP_ID = "1456178881340751";
     const APP_SECRET = "0a8bd1b0e40a21206aa1b0b02ec14251";
@@ -22,17 +24,16 @@
     try {
         $session = $helper->getSessionFromRedirect();
     } catch(FacebookRequestException $ex) {
-        echo "1";
-        die(var_dump($ex->getMessage()));
+        
     } catch(\Exception $ex) {
-        echo "2";
-        die(var_dump($ex->getMessage()));
+        
     }
     if ($session) {
         $request = new FacebookRequest( $session, 'GET', '/me' );
         $response = $request->execute();
-        // get response
-        $graphObject = $response->getGraphObject();
+        
+        // Get response
+        $graphObject = $response->getGraphObject(GraphUser::className());
     } else {
         $loginUrl = $helper->getLoginUrl();
     }
@@ -66,7 +67,7 @@
         <?php
             if (isset($graphObject)) {
                 die(var_dump($graphObject));
-                echo "Vous êtes connecté en tant que ".$graphObject->backingData['name'];
+                echo "Vous êtes connecté en tant que ".$graphObject->getName();
             } else {
                 echo '<a href="'.$loginUrl.'">S\'authentifier avec Facebook</a>';
             }
