@@ -10,7 +10,7 @@
     
     const APP_ID = "1456178881340751";
     const APP_SECRET = "0a8bd1b0e40a21206aa1b0b02ec14251";
-    const REDIRECT_URL = "https://projetadriensyesgi1.herokuapp.com";
+    const REDIRECT_URL = "https://projetadriensyesgi1.herokuapp.com/";
     
     session_start();
     
