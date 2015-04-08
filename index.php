@@ -13,6 +13,7 @@
     const APP_ID = "1456178881340751";
     const APP_SECRET = "0a8bd1b0e40a21206aa1b0b02ec14251";
     const REDIRECT_URL = "https://projetadriensyesgi1.herokuapp.com/";
+    const FB_TOKEN = 'fb_token';
     
     session_start();
     
@@ -21,14 +22,20 @@
     $loginUrl = "";
     $helper = new FacebookRedirectLoginHelper(REDIRECT_URL);
     
-    try {
-        $session = $helper->getSessionFromRedirect();
-    } catch(FacebookRequestException $ex) {
-        
-    } catch(\Exception $ex) {
-        
-    }
+    
     if ($session) {
+        if (isset($_SESSION) && isset($_SESSION[FB_TOKEN])) {
+            try {
+                $session = $helper->getSessionFromRedirect();
+            } catch(FacebookRequestException $ex) {
+
+            } catch(\Exception $ex) {
+
+            }
+        } else {
+            $_SESSION[FB_TOKEN] = $session->getAccessToken();
+        }
+        
         $request = new FacebookRequest( $session, 'GET', '/me' );
         $response = $request->execute();
         
@@ -69,7 +76,7 @@
                 echo "Vous êtes connecté en tant que ".$graphObject->getName();
                 echo '<img src="http://graph.facebook.com/'.$graphObject->getId().'/picture" alt="Facebook profile picture" height="42" width="42">';
             } else {
-                echo '<a href="'.$loginUrl.'">S\'authentifier avec Facebook</a>';
+                echo '<a class="fb-button" href="'.$loginUrl.'">S\'authentifier avec Facebook</a>';
             }
         ?>
         
